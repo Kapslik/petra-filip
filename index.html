@@ -17,7 +17,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -72,7 +71,6 @@
 
   .nav-links a:hover { color: var(--gold); }
 
-  /* HAMBURGER */
   .hamburger {
     display: none;
     flex-direction: column;
@@ -130,25 +128,31 @@
     overflow: hidden;
   }
 
+  /* Use <img> tag instead of CSS background-image to avoid filename/encoding issues */
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('foto-svatba.jpeg');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    z-index: 0;
   }
 
-  .hero-bg::after {
-    content: '';
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .hero-overlay {
     position: absolute;
     inset: 0;
-    background: 
+    z-index: 1;
+    background:
       linear-gradient(to bottom, rgba(250,246,240,0.72) 0%, rgba(250,246,240,0.55) 50%, rgba(250,246,240,0.82) 100%),
       radial-gradient(ellipse at 20% 80%, rgba(184,147,90,0.10) 0%, transparent 60%);
   }
 
-  .hero > * { position: relative; z-index: 1; }
+  .hero > *:not(.hero-bg):not(.hero-overlay) { position: relative; z-index: 2; }
 
   .hero-ornament {
     font-family: 'Cormorant Garamond', serif;
@@ -171,10 +175,7 @@
     letter-spacing: -0.01em;
   }
 
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
 
   .hero-divider {
     width: 60px;
@@ -202,7 +203,6 @@
     animation: fadeUp 1s ease 0.6s both;
   }
 
-  /* COUNTDOWN */
   .countdown {
     display: flex;
     gap: 2rem;
@@ -210,9 +210,7 @@
     animation: fadeUp 1s ease 0.7s both;
   }
 
-  .countdown-unit {
-    text-align: center;
-  }
+  .countdown-unit { text-align: center; }
 
   .countdown-num {
     font-family: 'Cormorant Garamond', serif;
@@ -229,27 +227,6 @@
     text-transform: uppercase;
     color: var(--muted);
     margin-top: 0.3rem;
-  }
-
-  /* HERO IMAGE */
-  .hero-image-wrap {
-    position: relative;
-    margin-top: 3rem;
-    animation: fadeUp 1s ease 0.8s both;
-  }
-
-  .hero-photo {
-    width: min(280px, 70vw);
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    border: 1px solid rgba(184,147,90,0.3);
-  }
-
-  .hero-photo-frame {
-    position: absolute;
-    inset: -8px;
-    border: 1px solid rgba(184,147,90,0.15);
-    pointer-events: none;
   }
 
   /* SECTIONS */
@@ -285,11 +262,7 @@
     margin-bottom: 2rem;
   }
 
-  /* PROGRAM */
-  .program-grid {
-    display: grid;
-    gap: 0;
-  }
+  .program-grid { display: grid; gap: 0; }
 
   .program-item {
     display: grid;
@@ -310,18 +283,9 @@
     padding-top: 0.1rem;
   }
 
-  .program-title {
-    font-weight: 400;
-    color: var(--dark);
-    margin-bottom: 0.2rem;
-  }
+  .program-title { font-weight: 400; color: var(--dark); margin-bottom: 0.2rem; }
+  .program-desc { font-size: 0.88rem; color: var(--muted); }
 
-  .program-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-  }
-
-  /* MAP BUTTON */
   .map-links {
     display: flex;
     gap: 1rem;
@@ -344,10 +308,7 @@
     font-family: 'Jost', sans-serif;
   }
 
-  .btn:hover {
-    background: var(--gold);
-    color: white;
-  }
+  .btn:hover { background: var(--gold); color: white; }
 
   .btn-filled,
   a.btn-filled,
@@ -364,7 +325,6 @@
     color: white !important;
   }
 
-  /* ADDRESS BOX */
   .address-box {
     background: var(--warm);
     border-left: 3px solid var(--gold);
@@ -375,7 +335,6 @@
   .address-box p { color: var(--muted); font-size: 0.95rem; }
   .address-box strong { color: var(--dark); display: block; margin-bottom: 0.3rem; font-weight: 400; font-size: 1.1rem; }
 
-  /* PHOTO + GIFTS PAGE */
   .qr-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -408,7 +367,6 @@
   .qr-card a { color: var(--gold); text-decoration: none; }
   .qr-card a:hover { text-decoration: underline; }
 
-  /* FAQ */
   .faq-list { display: grid; gap: 0; }
 
   .faq-item {
@@ -440,7 +398,6 @@
 
   .faq-a { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
 
-  /* FOOTER */
   footer {
     text-align: center;
     padding: 3rem 2rem;
@@ -459,7 +416,6 @@
     margin-bottom: 0.5rem;
   }
 
-  /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -471,32 +427,23 @@
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
 
-  .fade-in.visible {
-    opacity: 1;
-    transform: none;
-  }
+  .fade-in.visible { opacity: 1; transform: none; }
 
-  /* RESPONSIVE */
   @media (max-width: 640px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
-
     .countdown { gap: 1.2rem; }
     .countdown-num { font-size: 2rem; }
-
     .program-item { grid-template-columns: 1fr; gap: 0.3rem; }
     .program-time { padding-top: 0; }
-
     .qr-grid { grid-template-columns: 1fr; gap: 2rem; }
-
     section { padding: 3rem 1.5rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#" onclick="showPage('uvod')">Filip & Petra</a>
   <ul class="nav-links">
@@ -520,7 +467,11 @@
 <!-- PAGE: ÚVOD -->
 <div class="page active" id="page-uvod">
   <div class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <!-- Using <img> tag avoids all CSS url() filename/encoding issues -->
+      <img src="foto svatba.jpeg" alt="" aria-hidden="true" />
+    </div>
+    <div class="hero-overlay"></div>
     <div class="hero-ornament">Budeme se brát</div>
     <h1>Filip<br><em>&</em><br>Petra</h1>
     <div class="hero-divider"></div>
@@ -546,7 +497,6 @@
     </div>
   </div>
 
-  <!-- Intro section -->
   <section class="fade-in">
     <div class="section-label">Vítejte</div>
     <h2>Tak <em>vyšlo</em></h2>
@@ -691,14 +641,12 @@
   </section>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <span class="footer-names">Filip & Petra</span>
   1. 5. 2026 · Vinné sklepy Skalák
 </footer>
 
 <script>
-  // PAGE ROUTING
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
@@ -706,12 +654,9 @@
     observeFadeIns();
   }
 
-  // HAMBURGER
   function toggleMenu() {
-    const btn = document.getElementById('hamburger');
-    const menu = document.getElementById('mobile-menu');
-    btn.classList.toggle('open');
-    menu.classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobile-menu').classList.toggle('open');
   }
 
   function closeMenu() {
@@ -719,37 +664,28 @@
     document.getElementById('mobile-menu').classList.remove('open');
   }
 
-  // COUNTDOWN
   function updateCountdown() {
     const target = new Date('2026-05-01T11:00:00');
-    const now = new Date();
-    const diff = target - now;
+    const diff = target - new Date();
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML = '<div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-style:italic;color:var(--gold);">Dnes je ten den! 🎉</div>';
       return;
     }
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const secs = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
-    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+    document.getElementById('cd-days').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
   }
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // SCROLL FADE-IN
   function observeFadeIns() {
     setTimeout(() => {
       const els = document.querySelectorAll('.page.active .fade-in');
       const obs = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
-          if (e.isIntersecting) {
-            setTimeout(() => e.target.classList.add('visible'), i * 80);
-          }
+          if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
         });
       }, { threshold: 0.1 });
       els.forEach(el => obs.observe(el));
