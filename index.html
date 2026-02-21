@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filip & Petra – Svatba 1. 5. 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm: #f0e8dc;
+    --gold: #b8935a;
+    --dark: #2c2518;
+    --muted: #7a6e62;
+    --accent: #c9a96e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250,246,240,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(184,147,90,0.2);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--gold);
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.7px, 4.7px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.7px, -4.7px); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(184,147,90,0.2);
+    z-index: 99;
+    padding: 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* PAGES */
+  .page { display: none; padding-top: 72px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: calc(100vh - 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 80%, rgba(184,147,90,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(184,147,90,0.08) 0%, transparent 50%);
+  }
+
+  .hero-ornament {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 300;
+    line-height: 0.9;
+    color: var(--dark);
+    animation: fadeUp 1s ease 0.2s both;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2rem auto;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero-date {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  .hero-venue {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  /* COUNTDOWN */
+  .countdown {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    animation: fadeUp 1s ease 0.7s both;
+  }
+
+  .countdown-unit {
+    text-align: center;
+  }
+
+  .countdown-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .countdown-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* HERO IMAGE */
+  .hero-image-wrap {
+    position: relative;
+    margin-top: 3rem;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .hero-photo {
+    width: min(280px, 70vw);
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border: 1px solid rgba(184,147,90,0.3);
+  }
+
+  .hero-photo-frame {
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(184,147,90,0.15);
+    pointer-events: none;
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  .gold-line {
+    width: 50px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  /* PROGRAM */
+  .program-grid {
+    display: grid;
+    gap: 0;
+  }
+
+  .program-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(184,147,90,0.15);
+    align-items: start;
+  }
+
+  .program-item:last-child { border-bottom: none; }
+
+  .program-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--gold);
+    padding-top: 0.1rem;
+  }
+
+  .program-title {
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 0.2rem;
+  }
+
+  .program-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  /* MAP BUTTON */
+  .map-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .btn:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  .btn-filled {
+    background: var(--gold);
+    color: white;
+  }
+
+  .btn-filled:hover {
+    background: #a07840;
+    border-color: #a07840;
+  }
+
+  /* ADDRESS BOX */
+  .address-box {
+    background: var(--warm);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+
+  .address-box p { color: var(--muted); font-size: 0.95rem; }
+  .address-box strong { color: var(--dark); display: block; margin-bottom: 0.3rem; font-weight: 400; font-size: 1.1rem; }
+
+  /* PHOTO + GIFTS PAGE */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  .qr-card {
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid rgba(184,147,90,0.2);
+  }
+
+  .qr-card img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+
+  .qr-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+  }
+
+  .qr-card p { font-size: 0.85rem; color: var(--muted); }
+  .qr-card a { color: var(--gold); text-decoration: none; }
+  .qr-card a:hover { text-decoration: underline; }
+
+  /* FAQ */
+  .faq-list { display: grid; gap: 0; }
+
+  .faq-item {
+    padding: 1.8rem 0;
+    border-bottom: 1px solid rgba(184,147,90,0.15);
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+
+  .faq-num {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    font-family: 'Jost', sans-serif;
+    color: var(--accent);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .faq-a { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(184,147,90,0.15);
+    color: var(--muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer .footer-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .countdown { gap: 1.2rem; }
+    .countdown-num { font-size: 2rem; }
+
+    .program-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    .program-time { padding-top: 0; }
+
+    .qr-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+    section { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('uvod')">Filip & Petra</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('uvod')">Úvod</a></li>
+    <li><a href="#" onclick="showPage('svatebni-den')">Svatební den</a></li>
+    <li><a href="#" onclick="showPage('fotky-dary')">Fotky & Dary</a></li>
+    <li><a href="#" onclick="showPage('prakticnosti')">Praktičnosti</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#" onclick="showPage('uvod'); closeMenu()">Úvod</a>
+  <a href="#" onclick="showPage('svatebni-den'); closeMenu()">Svatební den</a>
+  <a href="#" onclick="showPage('fotky-dary'); closeMenu()">Fotky & Dary</a>
+  <a href="#" onclick="showPage('prakticnosti'); closeMenu()">Praktičnosti</a>
+</div>
+
+<!-- PAGE: ÚVOD -->
+<div class="page active" id="page-uvod">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-ornament">Budeme se brát</div>
+    <h1>Filip<br><em>&</em><br>Petra</h1>
+    <div class="hero-divider"></div>
+    <div class="hero-date">1. května 2026</div>
+    <div class="hero-venue">Vinné sklepy Skalák</div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">—</span>
+        <div class="countdown-label">Dní</div>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">—</span>
+        <div class="countdown-label">Hodin</div>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">—</span>
+        <div class="countdown-label">Minut</div>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-secs">—</span>
+        <div class="countdown-label">Sekund</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Intro section -->
+  <section class="fade-in">
+    <div class="section-label">Vítejte</div>
+    <h2>Tak <em>vyšlo</em></h2>
+    <div class="gold-line"></div>
+    <p style="color: var(--muted); font-size: 1.05rem; max-width: 520px;">
+      Jsme rádi, že to s námi táhnete, a těšíme se na vás 1. května 2026 ve Vinných sklepech Skalák.
+    </p>
+    <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a class="btn btn-filled" href="#" onclick="showPage('svatebni-den')">Programu dne →</a>
+      <a class="btn" href="#" onclick="showPage('prakticnosti')">Praktičnosti</a>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: SVATEBNÍ DEN -->
+<div class="page" id="page-svatebni-den">
+  <section>
+    <div class="section-label">1. května 2026</div>
+    <h2>Těšíme se <em>na vás</em></h2>
+    <div class="gold-line"></div>
+
+    <div class="address-box fade-in">
+      <strong>Vinné sklepy Skalák</strong>
+      <p>Skalka 85, 696 48 Skalka</p>
+      <p style="margin-top: 0.3rem; font-size: 0.85rem; color: var(--gold);">Přijeďte na 11:00</p>
+    </div>
+
+    <div class="map-links fade-in">
+      <a class="btn" href="https://maps.app.goo.gl/9HkjCh7gV7qgTzRZ7" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Google Maps
+      </a>
+      <a class="btn" href="https://waze.com/ul/hu2snztbev" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Waze
+      </a>
+    </div>
+
+    <div style="margin-top: 3.5rem;" class="fade-in">
+      <div class="section-label">Program</div>
+      <div class="program-grid">
+        <div class="program-item">
+          <div class="program-time">10:30 – 11:30</div>
+          <div>
+            <div class="program-title">Příchod hostů</div>
+            <div class="program-desc">Přijeďte v klidu, čeká vás uvítací drink.</div>
+          </div>
+        </div>
+        <div class="program-item">
+          <div class="program-time">12:00</div>
+          <div>
+            <div class="program-title">Obřad</div>
+            <div class="program-desc">Ve vinici — doporučujeme vhodnou obuv (viz Praktičnosti).</div>
+          </div>
+        </div>
+        <div class="program-item">
+          <div class="program-time">13:00</div>
+          <div>
+            <div class="program-title">Focení & aktivity</div>
+            <div class="program-desc">Připravujeme pro vás.</div>
+          </div>
+        </div>
+        <div class="program-item">
+          <div class="program-time">14:00</div>
+          <div>
+            <div class="program-title">Ubytování</div>
+            <div class="program-desc">Přihlásit se na pokoj bude možné od odpoledne.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: FOTKY & DARY -->
+<div class="page" id="page-fotky-dary">
+  <section>
+    <div class="section-label">Vzpomínky & Dary</div>
+    <h2>Fotky & <em>Dary</em></h2>
+    <div class="gold-line"></div>
+
+    <div class="qr-grid">
+      <div class="qr-card fade-in">
+        <img src="https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000007-9461d9461f/qr-svatba-fotky.png?ph=232c49f109" alt="QR kód Google Photos" />
+        <h3>Fotky ze svatebního dne</h3>
+        <p>Budeme rádi, pokud nám nasdílíte ty svoje :)</p>
+        <p style="margin-top: 0.8rem;">
+          <a href="https://photos.app.goo.gl/bhxFLFE133rZnpg76" target="_blank" class="btn btn-filled" style="display: inline-block; margin-top: 0.5rem; font-size: 0.75rem;">Otevřít album →</a>
+        </p>
+      </div>
+
+      <div class="qr-card fade-in">
+        <img src="https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000002-ca30dca30f/qr%20svatba%20bramborak.jpeg?ph=232c49f109" alt="QR kód CZK dar" />
+        <h3>Svatební dary</h3>
+        <p>Preferujeme finanční dary.</p>
+        <p style="margin-top: 0.8rem; font-size: 0.85rem; color: var(--muted);">CZK – QR výše</p>
+        <p style="font-size: 0.85rem; color: var(--muted);">EUR – <a href="https://revolut.me/filipeoc8" target="_blank">revolut.me/filipeoc8</a></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: PRAKTIČNOSTI -->
+<div class="page" id="page-prakticnosti">
+  <section>
+    <div class="section-label">Vše co potřebujete vědět</div>
+    <h2><em>Praktičnosti</em></h2>
+    <div class="gold-line"></div>
+
+    <div class="faq-list">
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">01</span> Dress code</div>
+        <div class="faq-a">Pánové si dají oblek. Dámy oblíbené šaty všech barev a vzorů.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">02</span> Obuv</div>
+        <div class="faq-a">Obřad bude ve vinici — pokud máte podpatky, doporučujeme vzít druhou obuv.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">03</span> Ubytování</div>
+        <div class="faq-a">
+          Pro všechny hosty máme zajišteno ubytování. Přihlásit se na pokoj bude možné odpoledne kolem 14:00. Pokud potřebujete pokoj dříve (na převlečení, krizové dětské situace apod.), dejte nám vědět — pár pokojů bude k dispozici. Snídaně je v ceně.
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">04</span> Co se pije?</div>
+        <div class="faq-a">Slivovice.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">05</span> Děti</div>
+        <div class="faq-a">Bude jich hodně.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">06</span> Strava</div>
+        <div class="faq-a">Pokud jsi nejedlík (vegan, vegetarián atd.), dej nám vědět co nejdříve.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-q"><span class="faq-num">✦</span> To jako fakt?</div>
+        <div class="faq-a">Njn, fakt! Fakt se bereme! Hustý, co?</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-names">Filip & Petra</span>
+  1. 5. 2026 · Vinné sklepy Skalák
+</footer>
+
+<script>
+  // PAGE ROUTING
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    observeFadeIns();
+  }
+
+  // HAMBURGER
+  function toggleMenu() {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  }
+
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+
+  // COUNTDOWN
+  function updateCountdown() {
+    const target = new Date('2026-05-01T11:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-style:italic;color:var(--gold);">Dnes je ten den! 🎉</div>';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // SCROLL FADE-IN
+  function observeFadeIns() {
+    setTimeout(() => {
+      const els = document.querySelectorAll('.page.active .fade-in');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 80);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(el => obs.observe(el));
+    }, 50);
+  }
+
+  observeFadeIns();
+</script>
+</body>
+</html>
