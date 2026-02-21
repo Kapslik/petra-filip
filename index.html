@@ -133,10 +133,22 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background: 
-      radial-gradient(ellipse at 20% 80%, rgba(184,147,90,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(184,147,90,0.08) 0%, transparent 50%);
+    background-image: url('https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000000-eb2f6eb2f7/foto%20svatba.jpeg?ph=232c49f109');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
   }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(to bottom, rgba(250,246,240,0.72) 0%, rgba(250,246,240,0.55) 50%, rgba(250,246,240,0.82) 100%),
+      radial-gradient(ellipse at 20% 80%, rgba(184,147,90,0.10) 0%, transparent 60%);
+  }
+
+  .hero > * { position: relative; z-index: 1; }
 
   .hero-ornament {
     font-family: 'Cormorant Garamond', serif;
@@ -337,14 +349,19 @@
     color: white;
   }
 
-  .btn-filled {
+  .btn-filled,
+  a.btn-filled,
+  a.btn.btn-filled {
     background: var(--gold);
-    color: white;
+    color: white !important;
   }
 
-  .btn-filled:hover {
+  .btn-filled:hover,
+  a.btn-filled:hover,
+  a.btn.btn-filled:hover {
     background: #a07840;
     border-color: #a07840;
+    color: white !important;
   }
 
   /* ADDRESS BOX */
@@ -613,20 +630,20 @@
 
     <div class="qr-grid">
       <div class="qr-card fade-in">
-        <img src="https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000007-9461d9461f/qr-svatba-fotky.png?ph=232c49f109" alt="QR kód Google Photos" />
         <h3>Fotky ze svatebního dne</h3>
         <p>Budeme rádi, pokud nám nasdílíte ty svoje :)</p>
         <p style="margin-top: 0.8rem;">
           <a href="https://photos.app.goo.gl/bhxFLFE133rZnpg76" target="_blank" class="btn btn-filled" style="display: inline-block; margin-top: 0.5rem; font-size: 0.75rem;">Otevřít album →</a>
         </p>
+        <img src="https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000007-9461d9461f/qr-svatba-fotky.png?ph=232c49f109" alt="QR kód Google Photos" style="margin-top: 1.2rem;" />
       </div>
 
       <div class="qr-card fade-in">
-        <img src="https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000002-ca30dca30f/qr%20svatba%20bramborak.jpeg?ph=232c49f109" alt="QR kód CZK dar" />
         <h3>Svatební dary</h3>
         <p>Preferujeme finanční dary.</p>
-        <p style="margin-top: 0.8rem; font-size: 0.85rem; color: var(--muted);">CZK – QR výše</p>
+        <p style="margin-top: 0.8rem; font-size: 0.85rem; color: var(--muted);">CZK – QR níže</p>
         <p style="font-size: 0.85rem; color: var(--muted);">EUR – <a href="https://revolut.me/filipeoc8" target="_blank">revolut.me/filipeoc8</a></p>
+        <img src="https://232c49f109.cbaul-cdnwnd.com/0f9107f717cd61330651281aae6d54ea/200000002-ca30dca30f/qr%20svatba%20bramborak.jpeg?ph=232c49f109" alt="QR kód CZK dar" style="margin-top: 1.2rem;" />
       </div>
     </div>
   </section>
